@@ -1,38 +1,32 @@
 import * as React from 'react';
 import mainContainer from './containers/mainContainer';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Link, NavLink, HashRouter } from 'react-router-dom';
 
-
-interface Props {
-  name: string,
-}
-
+// couldn't get browswer router to refresh page
+// going to just use hash router for now
 export default function App(): JSX.Element {
   return (
-    <BrowserRouter>
+    <HashRouter >
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <Link to="/about">About</Link>
+          <NavLink to="/about">About</NavLink>
         </li>
         <li>
-          <Link to="/topics">Topics</Link>
+          <NavLink to="/users">Users</NavLink>
         </li>
       </ul>
       <Routes>
         // need to change the component to be different pages
         <Route path='about' Component={About} />
-        <Route path='/whatwedo' Component={mainContainer} />
-        <Route path='/getinvolved' Component={mainContainer} />
-        <Route path='/partners' Component={mainContainer} />
-        <Route path='/news' Component={mainContainer} />
-        <Route path='/team' Component={mainContainer} />
-        <Route path='/horses' Component={mainContainer} />
-        <Route path='/' Component={Home} />
+        <Route path='users' Component={Users} />
+        {/* <Route path='home' Component={Home} /> */}
+        <Route path='/' Component={mainContainer} />
+        <Route path='*' Component={NotFound} />
       </Routes>
-    </BrowserRouter >
+    </HashRouter >
     // mainContainer()
   )
 }
@@ -47,4 +41,8 @@ export function About() {
 
 function Users() {
   return <h2>Users</h2>;
+}
+
+function NotFound() {
+  return <h2>404 Page Not Found</h2>;
 }
